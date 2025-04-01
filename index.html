@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ============== 輪播css ============== -->
+  <link rel="stylesheet" href="https://media.etmall.com.tw/sp/12500/swiper.min.css" />
+  <!-- ============== 共用css ============== -->
+  <link rel="stylesheet" href="https://media.etmall.com.tw/sp/12500/animate.min.css" />
+  <link rel="stylesheet" href="https://media.etmall.com.tw/sp/12500/generate_v1.5.7.css"/>
+  <link rel="stylesheet" href="https://media.etmall.com.tw/sp/12500/build.css" />
+    
+  <!-- [電梯步驟1] 電梯CSS 不用就關掉 -->
+  <!-- 商品左電梯CSS，要使用還要在步驟2開啟左電梯data資料 -->
+  <!-- <link id="localElevatorLeft" rel="stylesheet" href="sp-elevator-left.css"> -->
+
+  <!-- 商品右電梯CSS，步驟2有測試div可以測試 -->
+  <link id="localElevatorRight" rel="stylesheet" href="sp-elevator-right.css" />
+  <!-- [電梯步驟1] 電梯CSS END -->
+
+  <style>
+
+    body {
+      background-color: #ffcfcf;
+      /* width: 100vw; */
+    }
+
+    body:before {
+      background: url(bg-m.jpg) center 0 no-repeat;
+      background-size: 100%;
+      /* width: 100vw; */
+    }
+
+    @media screen and (min-width: 960px) {
+      body:before {
+        background: url(bg.jpg) center 0 no-repeat;
+        background-size: auto;
+      }
+    }
+
+    @media screen and (min-width: 1213px){
+      .sp-right__nav a{
+        /* 大網右電梯文字顏色 */
+        color: rgb(255, 255, 255);
+      }
+      .sp-right__nav li a.active, .sp-right__nav a:hover{
+        /* 大網右電梯文字hover顏色 */
+        color: #ffee7e;
+      }
+      .sp-right__nav li a.active:after, .sp-right__nav a:hover:after{
+        /* 大網右電梯TITLE圈圈的hover顏色 */
+        border: 3px solid #ffee7e;
+      }
+    }
+    /* --- 電梯換色 end--- */
+    /* 調整logo位置大小 */
+    /* .logo{  
+      top: 1vw;
+      left: 1vw;
+      width: 30%;
+    } */
+
+
+    /* 調整大網logo */
+    @media screen and (min-width:960px){
+      .logo{  
+        top: 0px;
+        left: calc(50% - 480px);
+        width: 30%;
+        max-width: 220px; 
+      }
+    }
+
+    /* 動畫物件 */
+    .sp__wallper{
+      overflow: hidden;
+    }
+    /*-- 手機版：設定物件距離左邊與上邊的位置，單位可以使用"%"或"vw";width:建議電腦版可以使用auto，手機版則可使用%調整 --*/
+    .animate__obj--tt {
+      position: absolute;
+      top: 8vw;
+      left: -2%;
+      width: 103%;
+      z-index: -5;
+    }
+    .animate__obj--tc {
+      position: absolute;
+      z-index: 1;
+      top: 68vw;
+      left: 13%;
+      width: 0%;
+    }
+    .animate__obj--lc {
+      position: absolute;
+      z-index: 1;
+      top: 68vw;
+      left: 13%;
+      width: 0%;
+    }
+    .animate__obj--g {
+      position: absolute;
+      z-index: 1;
+      top: 68vw;
+      left: 13%;
+      width: 0%;
+    }
+    .animate__obj--b {
+      position: absolute;
+      z-index: 1;
+      top: 68vw;
+      left: 13%;
+      width: 0%;
+    }
+    .animate__obj--ethand {
+      position: absolute;
+      z-index: -4;
+      top: 49vw;
+      left: 4%;
+      width: 95%;
+      position: fixed;
+      -webkit-animation: float 3s ease-in-out infinite alternate both;
+    }
+    @-webkit-keyframes float{
+      0%{
+          transform: translateY(20px);
+        }
+        100%{
+          transform: translateY(40px);
+        }  
+    }
+    .animate__obj--s1,.animate__obj--s2,.animate__obj--s3,.animate__obj--s4,.animate__obj--s5,.animate__obj--s6 {
+      width: 0%;
+    }
+
+    /*-- 電腦版：設定物件距離左邊與上邊的位置，單位可以使用"px"，左邊可以挑整clac()後面的px值;width:建議電腦版可以使用auto，手機版則可使用%調整 --*/
+    @media screen and (min-width:960px) {
+      .animate__obj--tt {
+        top: 60px;
+        left: calc(50% - 487px);
+        width: auto;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .animate__obj--tc {
+        top: 0px;
+        left: calc(50% - 1287px);
+        width: auto;
+        z-index: 10;
+        pointer-events: none;
+        position: fixed;
+      }
+      .animate__obj--lc {
+        top: 0px;
+        left: calc(50% - 746px);
+        width: auto;
+        z-index: -1;
+        position: fixed;
+        pointer-events: none;
+      }
+      .animate__obj--g {
+        top: 25px;
+        left: calc(50% - 935px);
+        width: auto;
+        z-index: -2;
+        pointer-events: none;
+        position: fixed;
+      }
+      .animate__obj--b {
+        top: 25px;
+        left: calc(50% - -495px);
+        width: auto;
+        z-index: -2;
+        pointer-events: none;
+        position: fixed;
+      }
+      .animate__obj--ethand {
+        top: 430px;
+        left: calc(50% - 480px);
+        width: auto;
+        z-index: 1;
+        pointer-events: none;
+        position: fixed;
+        animation: float 3s ease-in-out infinite alternate both;
+      }
+      @keyframes float {
+        0%{
+          transform: translateY(0px);
+        }
+        100%{
+          transform: translateY(30px);
+        }   
+      }
+      .animate__obj--s1,.animate__obj--s2,.animate__obj--s3,.animate__obj--s4,.animate__obj--s5,.animate__obj--s6 {
+        width: auto;
+        z-index: 1;
+        pointer-events: none;
+        position: fixed;
+        animation: star 2s linear infinite ;
+      }
+      @keyframes star {
+        0%{
+          transform: translateY(0px,) rotate(0deg);
+          opacity: 0;
+        }
+        20%{
+          opacity: 1;
+        }
+        80%{
+          opacity: 1;
+        }
+        100%{
+          transform: translateY(-150px) rotate(359deg);
+          opacity: 0; 
+        }        
+      }
+      .animate__obj--s1 {
+        top: 638px;
+        left: calc(50% - -866px);
+        animation-delay: -0.2s;
+      }
+      .animate__obj--s2 {
+        top: 265px;
+        left: calc(50% - -654px);
+        animation-delay: -0.7s;
+      }
+      .animate__obj--s3 {
+        top: 600px;
+        left: calc(50% - -573px);
+        animation-delay: -0.5s;
+      }
+      .animate__obj--s4 {
+        top: 638px;
+        left: calc(50% - 866px);
+        animation-delay: -0.7s;
+      }
+      .animate__obj--s5 {
+        top: 225px;
+        left: calc(50% - 654px);
+        animation-delay: -0.2s;
+      }
+      .animate__obj--s6 {
+        top: 600px;
+        left: calc(50% - 600px);
+        animation-delay: -0.5s;
+      }
+    }
+
+    .animate__wrap_fix{
+      position: relative;
+      z-index: -1;
+    }
+
+    /* --- 滑動Banner start --- */
+    .slider__wrap {
+      /* 輪播的父層 */
+      z-index: 0;
+    }
+
+    .slider__wrap .swipersty__banner {
+      position: absolute;
+      z-index: 0;
+      top: 25%;
+      left: 10%;
+      width: 80%;
+    }
+    /* --- 滑動Banner end --- */
+
+
+  </style>
+
+</head>
+
+  <body class="bg-fixed">
+
+    <div class="navRightBar" id="navRightBar"></div>
+    <div class="elevatorHome js--main--dialog" id="elevatorHome"></div>
+    <div id="barHome"></div>
+    <div class="home--icon layout--main" id="iconHome"></div>
+
+    <div class="animate__wrap_fix">
+      <div class="animate__obj--ethand animate__animated">
+        <img src="ani-ETcathands.png" alt="">
+      </div>
+      <div class="animate__obj--tt animate__animated animate__bounceInDown">
+        <img src="ani-tt.png" alt="">
+      </div>
+      <div class="animate__obj--tc animate__animated">
+          <img src="ani-Tconfetti.png" alt="">
+      </div>
+      <div class="animate__obj--lc animate__animated animate__jackInTheBox animate__delay-1s">
+          <img src="ani-Lconfetti.png" alt="">
+      </div>
+      <div class="animate__obj--g animate__animated animate__fadeInDown">
+        <img src="ani-girl.png" alt="">
+      </div>
+      <div class="animate__obj--b animate__animated animate__fadeInUp">
+          <img src="ani-boy.png" alt="">
+      </div>
+      
+
+      <div class="animate__obj--s1 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+      <div class="animate__obj--s2 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+      <div class="animate__obj--s3 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+      <div class="animate__obj--s4 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+      <div class="animate__obj--s5 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+      <div class="animate__obj--s6 animate__animated">
+          <img src="ani-star.png" alt="">
+      </div>
+    
+    </div>
+    
+    <div class="sp__wrap" id="spWrap">
+
+      <!-- logo -->
+      <div class="logo">
+        <a href="https://www.etmall.com.tw/">
+          <img src="ehs-logo.png" alt="東森購物">
+        </a>
+      </div>
+      <!-- 版頭主視覺 -->
+      <main class="sp__main" >
+        <section class="sp__visual">
+          <div class="layout--main">
+            <ul class="visual--auto clearfix">
+              <li class="visual__fragment width--auto"><img src="index_01.png" alt=""></li>
+              <!-- 誘因 -->
+              <li class="visual__fragment width--auto"><img src="index_02.png" alt=""></li>
+              <li class="visual__fragment width--auto"><img src="index_03.png" alt=""></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/p/131365"><img src="index_04.png" alt="妙管家 箱購專區 2件9折"></a></li>
+              <li class="visual__fragment width--auto"><a href="#"><img src="index_05.png" alt="舒潔 指定品滿$1099折$150"></a></li>
+
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/p/268747"><img src="index_06.png" alt="妙管家 指定單品滿199送除濕盒x2盒"></a></li>
+              <li class="visual__fragment width--auto"><a href="#"><img src="index_07.png" alt="舒潔 指定品滿2件登記送瞬乾洗衣精乙罐"></a></li>
+
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/p/268748"><img src="index_08.png" alt="妙管家 限定商品滿1599贈衛生紙一箱"></a></li>
+              <li class="visual__fragment width--auto"><a href="#"><img src="index_09.png" alt="舒潔 金百利滿$1699登記贈瞬潔洗潔精乙罐(限量45組)"></a></li>
+              <li class="visual__fragment width--auto"><img src="index_10.png" alt=""></li>
+              <li class="visual__fragment width--auto"><a href="#"><img src="index_11.png" alt="舒潔 單筆訂單滿$1999登記贈舒潔摺疊收納箱乙組(限量50組)"></a></li>
+              <li class="visual__fragment width--auto"><img src="index_12.png" alt=""></li>
+              <!-- 主打品 -->
+              <li class="visual__fragment width--auto"><img src="index_13.png" alt="聯慶特談下殺 bar"></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/2396283"><img src="index_14.png" alt="妙管家 抗菌洗衣精4000gx4瓶"></a></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/3541299"><img src="index_15.png" alt="舒潔 棉柔舒適抽取衛生紙 100抽x12包x6串/箱"></a></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/2397462"><img src="index_16.png" alt="妙管家 超強漂白水4000g x4瓶"></a></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/7501460"><img src="index_17.png" alt="舒潔 頂級三層舒適竹炭萃取 迪士尼抽取衛生紙 90抽 x 30包/箱"></a></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/7359081"><img src="index_18.png" alt="妙管家 洗碗精壓頭1000g x6入+重裝1000g x6入(植萃酵素/E護 兩款任選)"></a></li>
+              <li class="visual__fragment width--auto"><a href="https://www.etmall.com.tw/i/7505985"><img src="index_19.png" alt="舒潔 棉柔厚韌三層抽取衛生紙 110抽 x 30包/箱"></a></li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+  <!-- ============== 共用JS ============== -->
+  <script src="https://media.etmall.com.tw/sp/12500/jquery-3.6.0.min.js"></script>
+  <script src="https://media.etmall.com.tw/sp/12500/swiper.min.js"></script>
+  <script src="https://media.etmall.com.tw/sp/12500/generate_v1.5.7.js"></script>
+  <!--[電梯步驟2] 電梯 JS -->
+  <!-- 商品左電梯單機版資料，不用就關掉，要使用還要上方步驟1開啟商品左電梯CSS -->
+  <!-- <script id="dataElevatorLeft" src="data-elevator.js"></script> -->
+
+  <!-- 線上自動切換電梯，無論如何都要有 -->
+  <script id="checkElevator" src="https://media.etmall.com.tw/sp/11911/check-elevator.js"></script>
+  <!-- [電梯步驟2] 電梯 JS END -->
+
+  <!-- [測試區] -->
+  <!-- 測試商品右電梯用，上線前必須關掉 -->
+  <!-- <div data-title="ccc"></div> -->
+  <!-- 測試霸道電梯用，開啟時上方自動切換電梯要關閉，這支正式上線時需關閉、上方的要開啟回來 -->
+  <!-- <script id="checkElevator" src="https://media.etmall.com.tw/sp/14841/test-elevator.js?87"></script> -->
+
+      <!-- ============== 輪播 start ============== -->
+  <script>
+    var promoSliderItem = new Swiper("#swiperstyBanner", {
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+      },
+      grabCursor: true,
+      lazy: {
+        loadPrevNext: true,
+      },
+      loop: true,
+      perspective: true,
+      centeredSlides: true,
+      // effect: "flip",
+      // flipEffect: {
+      //   slideShadows: false,
+      // },
+      slidesPerView: 1,
+      speed: 600,
+      watchSlidesProgress: true,
+      watchSlidesVisibility: true,
+    });
+
+  </script>
+  <!-- ============== 輪播 end ============== -->
+
+  
+    
+  </body>
+</html>
